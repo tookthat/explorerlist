@@ -342,7 +342,17 @@ function setupInputListener() {
       return;
     }
 
+     // all da checking
+
     const match = findMatch(guess);
+
+    if (match && entered.has(match)) {
+  messageEl.textContent = "that cold boy's been cracked open!";
+  inputEl.classList.add("shake");
+  setTimeout(() => inputEl.classList.remove("shake"), 300);
+  return;
+}
+     
     if (match && !entered.has(match)) {
       entered.add(match);
       score++;
@@ -377,3 +387,4 @@ updateDisplay();
 
 </body>
 </html>
+
