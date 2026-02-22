@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="./favicon.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
+
+<title>list polar explorers until Christopher kills you</title>
+
+<style>
+body {
+   font-family: "Geist", sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 30px;
+  background: #1E2337;
+  color: #fff;
+}
+
+h1 { font-weight: 700; }
+
+#stats { font-size: 0.9rem;   font-family: "Google Sans Code", monospace; width:350px; margin:1rem auto 1.6rem auto;}
+
+#hidden {font-family:"Geist", sans-serif; color:#98c0c9;margin-top:15px; text-align:left; display:none;padding:0px 20px;}
+
+input {
+  padding: 0.75rem;
+  width: 300px;
+  font-size: 1rem;
+  border: 1px solid #98c0c9;
+  border-radius: 6px;
+  background:#333953;
+  color:#fff;
+  margin:1rem;
+}
+
+input:focus {
+  border:1px solid #da9a35;
+}
+
+#message { margin: 1rem 0rem; font-size:0.9rem; font-family: "Google Sans Code", monospace;}
+
+#donezo { margin:1em 0em; font-size: 0.9rem; color: #98c0c9; max-height:220px; overflow-y:auto; }
+
+button {
+  padding:0.2rem 0.5rem;
+  border: 1px solid #98c0c9;
+  cursor: pointer;
+  font-family: "Google Sans Code", monospace;
+  background:#333953;
+  color:#98c0c9;
+}
+button:hover { background: #da9a35; color:#fff; border:1px solid #da9a35; }
+
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+.shake { animation: shake 0.3s ease; }
+
+#crevasse {
+  position: fixed;
+  inset: 0;
+  background: url("./christopher.png") center/contain no-repeat;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0);
+  transition: transform 0.2s linear, opacity 0.2s linear;
+  z-index: 0;
+}
+
+
+#hutpoint {
+  position: relative;
+  z-index: 1;
+  background:#1e2337b2;
+  padding:30px;
+  max-width:700px;
+  margin:0px auto;
+}
+
+#rulesBtn {
+  display:inline-block;
+  cursor:pointer;
+}
+#rulesBtn:hover {
+  color:#da9a35;
+}
+
+#gg {margin-top:1.5rem}
+
+#credit {
+  bottom:0;
+  position:absolute;
+  right:0;
+  font-family:"Geist", sans-serif;
+  text-transform:uppercase;
+  font-size:0.7rem;
+  color:#98c0c9;
+  margin-bottom:10px;
+  margin-right:10px;
+}
+
+#credit a {
+  color:#98c0c9;
+  text-decoration:none;
+}
+
+#credit a:hover {
+  color:#da9a35;
+}
+
+</style>
+</head>
+<body>
+
+<div id="crevasse"></div>
+
+<div id="hutpoint">
+  <h1>list polar explorers until Christopher kills you in <span id="time">20</span> seconds</h1>
+  <div id="stats">
+  <div id="rulesBtn">Rules</div> ❄ Score: <span id="score">0</span> ❄ <button id="Xtreme" style="display:inline-block;">Hard Mode: OFF</button>
+  <div id="hidden">⁕ Just type 'em! You get +5 seconds for each correct name. Nicknames DON'T count. <br>⁕ You can use last names, unless two people share a last name, in which case you'll need to disambiguate. <br>
+   ⁕ Or you turn on Hard Mode - then that's ALL exact names only. <br>  
+  ⁕ There are so many people. Please let me know if I've missed someone out!</div>
+  </div>
+
+  <div id="message"></div>
+  <input id="input" autocomplete="off" />
+
+  <div id="donezo"></div>
+
+
+  <div id="gg" style="margin-top:2rem;font-size:1.4rem;"></div>
+  <button id="copyBtn" style="display:none;margin-top:1rem;">Copy results</button>
+</div>
+
+<div id="credit"><a href="https://rose.systems/animalist/">inspiration</a> ❄ <a href="https://nopickls.tumblr.com">direct ur complaints to</a></div>
+
+
+<script>
+
+  
+  document.getElementById('rulesBtn').addEventListener('click', function() {
+    var content = document.getElementById('hidden');
+    if (content.style.display === 'none' || content.style.display === '') {
+        content.style.display = 'block';
+    } else {
+        content.style.display = 'none';
+    }
+});
+
+</script>
+
+<script>
+  // SET TIMER
+const INITIAL_TIME = 60;
+const BONUS_TIME = 5;
+let timeLeft = INITIAL_TIME;
+let score = 0;
+let entered = new Set();
+let emojiResults = [];
+let timerInterval = null;
+let timerStarted = false;
+let hardModeEnabled = false;
+
+const inputEl = document.getElementById("input");
+const timeEl = document.getElementById("time");
+const scoreEl = document.getElementById("score");
+const messageEl = document.getElementById("message");
+const donezoEl = document.getElementById("donezo");
+const crevasseEl = document.getElementById("crevasse");
+const ggEl = document.getElementById("gg");
+const copyBtn = document.getElementById("copyBtn");
+const hardModeBtn = document.getElementById("Xtreme");
+
+hardModeBtn.addEventListener("click", () => {
+  hardModeEnabled = !hardModeEnabled;
+  hardModeBtn.textContent = `Hard Mode: ${hardModeEnabled ? "ON" : "OFF"}`;
+});
+
+let explorers = [];
+let explorerNameSet = new Set();
+let manualAliases = {};
+let autoAliases = {};
+let customComments = {};
+let globalComments = {};
+
+async function loadExplorers() {
+  try {
+    const res = await fetch("explorers.json");
+    const data = await res.json();
+    explorers = data;
+
+    explorerNameSet = new Set();
+    manualAliases = {};
+    autoAliases = {};
+    customComments = {};
+    globalComments = {};
+    const normalNames = [];
+
+    explorers.forEach(e => {
+      if (e.global) {
+        const triggers = Array.isArray(e.trigger) ? e.trigger : [e.trigger];
+        triggers.forEach(t => globalComments[t.toLowerCase()] = e.comment);
+      } else {
+        const fullName = e.name.toLowerCase();
+        normalNames.push(e.name);
+        explorerNameSet.add(fullName);
+
+        if (e.comment) customComments[fullName] = e.comment;
+
+        if (Array.isArray(e.aliases)) {
+          e.aliases.forEach(a => {
+            
+            let aliasName, aliasComment;
+            if (typeof a === "string") {
+              aliasName = a.toLowerCase();
+              aliasComment = e.comment || "";
+            } else {
+              aliasName = a.name.toLowerCase();
+              aliasComment = a.comment || e.comment || "";
+            }
+            manualAliases[aliasName] = fullName;
+            customComments[aliasName] = aliasComment;
+          });
+        }
+      }
+    });
+
+    autoAliases = generateAutoAliases(normalNames);
+    
+    Object.keys(autoAliases).forEach(key => {
+      autoAliases[key] = autoAliases[key].toLowerCase();
+    });
+
+  } catch (err) {
+    console.error("Error loading explorers.json:", err);
+  }
+}
+
+// caps stuff
+function normalize(text) {
+  return text.trim().toLowerCase();
+}
+
+// auto last name
+function generateAutoAliases(names) {
+  const aliasMap = {};
+  const surnameCount = {};
+  names.forEach(name => {
+    const surname = name.split(" ").pop().toLowerCase();
+    surnameCount[surname] = (surnameCount[surname] || 0) + 1;
+  });
+  names.forEach(name => {
+    const surname = name.split(" ").pop().toLowerCase();
+    if (surnameCount[surname] === 1) aliasMap[surname] = name.toLowerCase();
+  });
+  return aliasMap;
+}
+
+function findMatch(input) {
+  if (!input) return null;
+  input = normalize(input);
+
+  if (explorerNameSet.has(input)) return input;
+  if (manualAliases[input]) return manualAliases[input];
+  if (!hardModeEnabled && autoAliases[input]) return autoAliases[input];
+
+  return null;
+}
+
+function updateDisplay() {
+  timeEl.textContent = timeLeft;
+  scoreEl.textContent = score;
+
+  //crevasse stuff
+  if (timeLeft <= 10 && timeLeft > 0) {
+    const progress = (10 - timeLeft) / 10;
+    crevasseEl.style.opacity = progress;
+    crevasseEl.style.transform = `scale(${progress})`;
+  } else if (timeLeft <= 0) {
+    crevasseEl.style.opacity = 1;
+    crevasseEl.style.transform = "scale(1)";
+  } else {
+    crevasseEl.style.opacity = 0;
+    crevasseEl.style.transform = "scale(0)";
+  }
+}
+
+// the end
+function endGame() {
+  clearInterval(timerInterval);
+  inputEl.style.display = "none";
+  messageEl.style.display = "none";
+  document.getElementById("stats").style.display = "none";
+  ggEl.textContent = "With a terrible neigh, Christopher strikes you down! Great god, this is an awful place to have laboured without reward of ponymmunity! At least you managed to name " + score + " explorers before The Foddering."
+  copyBtn.style.display = "inline-block";
+}
+
+
+function tick() {
+  timeLeft--;
+  updateDisplay();
+  if (timeLeft <= 0) endGame();
+}
+
+copyBtn.addEventListener("click", async () => {
+  const emojiLine = emojiResults.join("");
+  const text = `I listed ${score} explorers before Christopher killed me ${emojiLine}`;
+  await navigator.clipboard.writeText(text);
+  copyBtn.textContent = "Copied!";
+});
+
+
+loadExplorers();
+
+function setupInputListener() {
+  inputEl.addEventListener("keydown", (e) => {
+    if (!timerStarted) {
+      timerInterval = setInterval(tick, 1000);
+      timerStarted = true;
+    }
+
+    if (e.key !== "Enter") return;
+
+    const guess = normalize(inputEl.value);
+    inputEl.value = "";
+    messageEl.textContent = "";
+
+    if (globalComments[guess]) {
+      messageEl.textContent = globalComments[guess];
+      inputEl.classList.add("shake");
+      setTimeout(() => inputEl.classList.remove("shake"), 300);
+      return;
+    }
+
+    const match = findMatch(guess);
+    if (match && !entered.has(match)) {
+      entered.add(match);
+      score++;
+      timeLeft += BONUS_TIME;
+
+      const explorerObj = explorers.find(e => e.name.toLowerCase() === match);
+      emojiResults.push(explorerObj.emoji + "\uFE0F");
+
+      const div = document.createElement("div");
+      div.textContent = match;
+      donezoEl.appendChild(div);
+
+      messageEl.textContent =
+        customComments[guess] || customComments[match] || "\u00A0";
+
+      updateDisplay();
+      return;
+    }
+
+    messageEl.textContent = "Nuh-uh.";
+    inputEl.classList.add("shake");
+    setTimeout(() => inputEl.classList.remove("shake"), 300);
+  });
+}
+
+setupInputListener();
+
+
+updateDisplay();
+</script>
+
+
+</body>
+</html>
