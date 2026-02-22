@@ -1552,7 +1552,7 @@
  { "name": "ejnar mikkelsen", "emoji": "🛖" },
   { "name": "iver iversen", "emoji": "🛖" },
 
-{ "name": "frederick cook", "emoji": "💈", "comment": "nooo don't invest in oil you're so sexy aha", "aliases": "fred cook"},
+{ "name": "frederick cook", "emoji": "💈", "comment": "nooo don't invest in oil you're so sexy aha", "aliases": ["fred cook"]},
   { "name": "etukishook", "emoji": "💈", "aliases": ["etukishuk"] },
   { "name": "ahwelah", "emoji": "💈" },
   { "name": "john bradley", "emoji": "💈" },
@@ -1590,7 +1590,7 @@
   { "name": "minik wallace", "emoji": "🌫️" },
   
  { "name": "vilhjalmur stefansson", "emoji": "🛷", "comment": "boo! hiss!!" },
-  { "name": "robert bartlett", "emoji": "🛷", "aliases": "bob bartlett" },
+  { "name": "robert bartlett", "emoji": "🛷", "aliases": ["bob bartlett"] },
   { "name": "william mckinlay", "emoji": "🛷" },
   { "name": "george malloch", "emoji": "🛷" },
   { "name": "bjarne mamen", "emoji": "🛷" },
@@ -1745,4 +1745,5 @@
 
 
  
+
 ]
