@@ -555,7 +555,7 @@
 { "name": "robert clark", "emoji": "🛶" },
 { "name": "leonard hussey", "emoji": "🛶" },
 { "name": "james wordie", "emoji": "🛶" },
-{ "name": "thomas orde-lees", "emoji": "🛶" },
+{ "name": "thomas orde-lees", "emoji": "🚴",  "aliases": ["thomas orde lees"]},
 { "name": "charles green", "emoji": "🛶" },
 { "name": "william stephenson", "emoji": "🛶" },
 { "name": "ernest holness", "emoji": "🛶" },
@@ -1741,9 +1741,14 @@
 { "global": true,
 "trigger": "azzurri",
 "comment": "that's the Italian football team. utried.jpg."
+},
+{ "global": true,
+"trigger": ["jcr", "rfs", "frmc", "ehs" ],
+"comment": "no acronyms we die like 129 frozen-in and starving men."
 }
 
 
  
 
 ]
+
