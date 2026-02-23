@@ -244,7 +244,7 @@ async function loadExplorers() {
       }
     });
 
-    autoAliases = generateAutoAliases(normalNames);
+  autoAliases = generateAutoAliases(explorers);
     
     Object.keys(autoAliases).forEach(key => {
       autoAliases[key] = autoAliases[key].toLowerCase();
@@ -261,17 +261,33 @@ function normalize(text) {
 }
 
 // auto last name
-function generateAutoAliases(names) {
+function generateAutoAliases(explorers) {
   const aliasMap = {};
   const surnameCount = {};
-  names.forEach(name => {
-    const surname = name.split(" ").pop().toLowerCase();
+
+  explorers.forEach(e => {
+    if (e.global) return;
+// for de des
+    const surname = e.surnameOverride
+      ? e.surnameOverride
+      : e.name.split(" ").pop();
+
     surnameCount[surname] = (surnameCount[surname] || 0) + 1;
   });
-  names.forEach(name => {
-    const surname = name.split(" ").pop().toLowerCase();
-    if (surnameCount[surname] === 1) aliasMap[surname] = name.toLowerCase();
+
+  
+  explorers.forEach(e => {
+    if (e.global) return;
+
+    const surname = e.surnameOverride
+      ? e.surnameOverride
+      : e.name.split(" ").pop();
+
+    if (surnameCount[surname] === 1) {
+      aliasMap[surname] = e.name;
+    }
   });
+
   return aliasMap;
 }
 
@@ -396,5 +412,6 @@ updateDisplay();
 
 </body>
 </html>
+
 
 
