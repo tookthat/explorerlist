@@ -107,7 +107,7 @@
 { "name": "emile danco", "emoji": "🍥", "comment": "this is so sad alexa play heartache tonight" },
 { "name": "antoine dobrowolski", "emoji": "🍥" },
 { "name": "gustav dufour", "emoji": "🍥" },
-{ "name": "adrien de gerlache", "emoji": "🍥" },
+{ "name": "adrien de gerlache", "emoji": "🍥", "surnameOverride": "de gerlache" },
 { "name": "ludvig-hjalmar johansen", "emoji": "🍥" },
 { "name": "engebret knudsen", "emoji": "🍥" },
 { "name": "johan koren", "emoji": "🍥" },
@@ -1751,4 +1751,5 @@
  
 
 ]
+
 
