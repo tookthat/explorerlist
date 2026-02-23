@@ -136,9 +136,10 @@ button:hover { background: #da9a35; color:#fff; border:1px solid #da9a35; }
   <h1>list polar explorers until Christopher kills you in <span id="time">20</span> seconds</h1>
   <div id="stats">
   <div id="rulesBtn">Rules</div> ❄ Score: <span id="score">0</span> ❄ <button id="Xtreme" style="display:inline-block;">Hard Mode: OFF</button>
-  <div id="hidden">⁕ Just type 'em! You get +5 seconds for each correct name. Nicknames DON'T count. <br>⁕ You can use last names, unless two people share a last name, in which case you'll need to disambiguate. <br>
-   ⁕ Or you turn on Hard Mode - then that's ALL exact names only. <br>  
-  ⁕ There are so many people. Please let me know if I've missed someone out!</div>
+  <div id="hidden">⁕ Just type 'em! You get +7 seconds for each correct name. Nicknames DON'T count. <br>⁕ You can use last names (with hyphens), unless two people share a last name, in which case you'll need to disambiguate. <br>
+   ⁕ Or you can turn on Hard Mode - then that's ALL exact names only. <br>  
+  ⁕ Runs till ~1999. There are so many people. Any mistakes my own. Please let me know if I've missed someone out!<br>
+  ⁕ For context, Christopher was a Bad Pony on the Terra Nova. You'll see him soon... </div>
   </div>
 
   <div id="message"></div>
@@ -171,7 +172,7 @@ button:hover { background: #da9a35; color:#fff; border:1px solid #da9a35; }
 <script>
   // SET TIMER
 const INITIAL_TIME = 60;
-const BONUS_TIME = 5;
+const BONUS_TIME = 7;
 let timeLeft = INITIAL_TIME;
 let score = 0;
 let entered = new Set();
@@ -412,6 +413,7 @@ updateDisplay();
 
 </body>
 </html>
+
 
 
 
