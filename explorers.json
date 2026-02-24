@@ -1696,8 +1696,8 @@
 "comment": "there're two of 'em!"
 },
 { "global": true,
-"trigger": "perce blackborrow",
-"comment": "it's not a library!"
+"trigger": ["perce blackborrow", "blackborrow"],
+"comment": "he's not a library!"
 },
 { "global": true,
 "trigger": ["birdie bowers", "bill wilson", "taff evans", "teddy evans", "atch", "silas wright", "chippy mcnish", "dundy", "bunny fuchs", "scout marr"],
@@ -1752,6 +1752,7 @@
  
 
 ]
+
 
 
 
