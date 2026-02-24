@@ -569,6 +569,7 @@
 { "name": "tom crean", "emoji": "🛶", "aliases": [
     { "name": "thomas crean", "comment": "only his mother calls him that!" }
 ] }, 
+    { "name": "harry mcnish", "emoji": "🛶" },
 
 
 { "name": "irvine gaze", "emoji": "📦" },
@@ -1751,6 +1752,7 @@
  
 
 ]
+
 
 
 
